@@ -1,6 +1,7 @@
-let current = 1;
+let currentIndex = 0;
 let intervalId;
 let calledNumbers = new Set();
+let shuffledNumbers = [];
 
 // Load tickets
 fetch("tickets.json")
@@ -20,7 +21,7 @@ function createBoard() {
   const board = document.getElementById("number-board");
   if (!board) return;
 
-  board.innerHTML = ""; // Clear if already exists
+  board.innerHTML = "";
   for (let i = 1; i <= 90; i++) {
     const cell = document.createElement("div");
     cell.classList.add("number");
@@ -30,17 +31,27 @@ function createBoard() {
   }
 }
 
+function shuffleNumbers() {
+  shuffledNumbers = Array.from({ length: 90 }, (_, i) => i + 1);
+  for (let i = shuffledNumbers.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledNumbers[i], shuffledNumbers[j]] = [shuffledNumbers[j], shuffledNumbers[i]];
+  }
+}
+
 function callNumber() {
-  if (current > 90) {
+  if (currentIndex >= shuffledNumbers.length) {
     clearInterval(intervalId);
     return;
   }
-  document.getElementById("number-display").textContent = `Number: ${current}`;
-  const cell = document.getElementById(`num-${current}`);
+
+  const number = shuffledNumbers[currentIndex];
+  document.getElementById("number-display").textContent = `Number: ${number}`;
+  const cell = document.getElementById(`num-${number}`);
   if (cell) cell.classList.add("called");
-  highlightTickets(current);
-  calledNumbers.add(current);
-  current++;
+  highlightTickets(number);
+  calledNumbers.add(number);
+  currentIndex++;
 }
 
 function highlightTickets(num) {
@@ -52,7 +63,9 @@ function highlightTickets(num) {
 }
 
 document.getElementById("start-btn").onclick = () => {
+  shuffleNumbers(); // randomize order
   clearInterval(intervalId);
+  currentIndex = 0;
   intervalId = setInterval(callNumber, 3000);
 };
 
