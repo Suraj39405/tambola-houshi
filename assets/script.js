@@ -20,3 +20,45 @@ fetch("tickets.json")
       container.appendChild(div);
     });
   });
+let numbers = [...Array(90).keys()].map(x => x + 1);
+let interval;
+let currentIndex = 0;
+let callLines = {};
+
+fetch("assets/numbers.json")
+  .then(res => res.json())
+  .then(data => {
+    callLines = data;
+});
+
+function startCalling() {
+  shuffle(numbers);
+  interval = setInterval(() => {
+    if (currentIndex >= numbers.length) {
+      clearInterval(interval);
+      return;
+    }
+    let num = numbers[currentIndex];
+    document.getElementById("current-number").innerText = num;
+    document.getElementById("call-line").innerText = callLines[num] || `Number ${num}`;
+    speak(callLines[num] || `Number ${num}`);
+    currentIndex++;
+  }, 5000);
+}
+
+function pauseCalling() {
+  clearInterval(interval);
+}
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+function speak(text) {
+  const msg = new SpeechSynthesisUtterance(text);
+  msg.lang = 'en-IN';
+  window.speechSynthesis.speak(msg);
+}
