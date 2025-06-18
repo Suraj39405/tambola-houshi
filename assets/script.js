@@ -1,4 +1,3 @@
-let current = 1;
 let intervalId;
 let calledNumbers = new Set();
 
