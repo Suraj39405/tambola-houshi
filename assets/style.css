@@ -1,49 +1,90 @@
 body {
   font-family: Arial, sans-serif;
-  background: #fffefa;
-  margin: 0;
-  padding: 20px;
   text-align: center;
+  padding: 20px;
+  background-color: #f8f8f8;
 }
 
 h1 {
   color: #333;
-  font-size: 2.5rem;
 }
 
-#called-number {
-  font-size: 4rem;
-  color: #ff6600;
+#controls {
   margin: 20px 0;
 }
 
-#start-btn {
+#start-btn,
+#stop-btn {
   padding: 10px 20px;
-  font-size: 1.2rem;
+  margin: 5px;
+  font-size: 18px;
   cursor: pointer;
-  margin-bottom: 20px;
 }
 
-#number-grid {
+#number-display {
+  font-size: 36px;
+  margin: 20px;
+  font-weight: bold;
+}
+
+#number-board {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  gap: 12px;
-  max-width: 800px;
-  margin: 0 auto;
+  gap: 10px;
+  justify-items: center;
+  margin: 20px auto;
+  max-width: 600px;
 }
 
-.number-cell {
-  font-size: 2rem;
-  padding: 20px;
-  border: 2px solid #ccc;
-  border-radius: 10px;
-  background: #f9f9f9;
-  transition: 0.3s;
+.number {
+  font-size: 20px;
+  padding: 10px;
+  background-color: #ddd;
+  border-radius: 5px;
+  width: 45px;
+  height: 45px;
+  line-height: 45px;
 }
 
-.number-cell.called {
-  background-color: #3cb371;
+.number.called {
+  background-color: #ffc107;
+  font-weight: bold;
+}
+
+#ticket-container {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.ticket {
+  border: 2px solid #333;
+  margin: 10px;
+  padding: 10px;
+  width: 270px;
+  background: white;
+  border-radius: 8px;
+}
+
+.ticket h3 {
+  margin: 5px 0;
+  font-size: 16px;
+}
+
+.ticket span {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin: 2px;
+  line-height: 30px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.ticket span.called {
+  background-color: #4caf50;
   color: white;
   font-weight: bold;
-  border-color: #2e8b57;
 }
