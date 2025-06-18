@@ -1,53 +1,49 @@
 body {
   font-family: Arial, sans-serif;
-  text-align: center;
-  background: #fdf6e3;
+  background: #fffefa;
   margin: 0;
-  padding: 0;
+  padding: 20px;
+  text-align: center;
 }
 
 h1 {
-  margin-top: 10px;
   color: #333;
+  font-size: 2.5rem;
 }
 
 #called-number {
-  font-size: 5rem;
-  font-weight: bold;
-  color: #e74c3c;
+  font-size: 4rem;
+  color: #ff6600;
   margin: 20px 0;
 }
 
 #start-btn {
   padding: 10px 20px;
-  font-size: 1.5rem;
-  background-color: #27ae60;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  margin-bottom: 20px;
+  font-size: 1.2rem;
   cursor: pointer;
+  margin-bottom: 20px;
 }
 
 #number-grid {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  gap: 10px;
-  max-width: 90vw;
-  margin: 0 auto 50px;
+  gap: 12px;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .number-cell {
   font-size: 2rem;
   padding: 20px;
-  border: 2px solid #555;
+  border: 2px solid #ccc;
   border-radius: 10px;
-  background-color: #fff;
-  color: #000;
+  background: #f9f9f9;
+  transition: 0.3s;
 }
 
-.number-cell.active {
-  background-color: #e67e22;
+.number-cell.called {
+  background-color: #3cb371;
   color: white;
   font-weight: bold;
+  border-color: #2e8b57;
 }
