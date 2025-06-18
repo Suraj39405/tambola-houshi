@@ -187,3 +187,4 @@ function announceWinner(ticketEl, type) {
   winnerBox.innerHTML += `<div><strong>${type}:</strong> ${name}</div>`;
   winners.add(ticketEl.getAttribute("data-id"));
 }
+<script src="assets/script.js"></script>
