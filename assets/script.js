@@ -62,3 +62,49 @@ function speak(text) {
   msg.lang = 'en-IN';
   window.speechSynthesis.speak(msg);
 }
+let numbers = Array.from({ length: 90 }, (_, i) => i + 1);
+let currentIndex = 0;
+let interval = null;
+
+// Shuffle numbers
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+shuffle(numbers);
+
+function callNextNumber() {
+  if (currentIndex < numbers.length) {
+    const number = numbers[currentIndex];
+    document.getElementById("current-number").textContent = number;
+    document.getElementById("call-line").textContent = getLine(number);
+    currentIndex++;
+  } else {
+    clearInterval(interval);
+    alert("All numbers have been called!");
+  }
+}
+
+function startCalling() {
+  if (!interval) {
+    interval = setInterval(callNextNumber, 5000); // call every 5 sec
+  }
+}
+
+function pauseCalling() {
+  clearInterval(interval);
+  interval = null;
+}
+
+function getLine(num) {
+  const lines = {
+    1: "1 is the beginning!",
+    14: "14 is Valentine's Day",
+    50: "Half Century!",
+    90: "Top of the game!",
+    // Add more custom lines here
+  };
+  return lines[num] || `Number ${num}`;
+}
