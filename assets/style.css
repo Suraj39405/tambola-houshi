@@ -1,1 +1,21 @@
-
+body {
+  font-family: Arial;
+  background: #f8f8f8;
+  text-align: center;
+}
+.ticket {
+  border: 2px solid #333;
+  display: inline-block;
+  margin: 10px;
+  padding: 10px;
+  background: white;
+}
+.ticket span {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin: 3px;
+  line-height: 30px;
+  border: 1px solid #999;
+  border-radius: 5px;
+}
