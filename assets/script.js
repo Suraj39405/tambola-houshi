@@ -1,18 +1,78 @@
-function callNumber() {
-  if (calledNumbers.size >= 90) {
+let calledNumbers = new Set();
+let availableNumbers = Array.from({ length: 90 }, (_, i) => i + 1);
+let intervalId = null;
+
+// Shuffle helper function
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+// Load tickets
+fetch("tickets.json")
+  .then(response => response.json())
+  .then(data => {
+    const container = document.getElementById("ticket-container");
+    data.tickets.forEach(ticket => {
+      const div = document.createElement("div");
+      div.className = "ticket";
+      div.innerHTML = `<h3>${ticket.name}</h3>` +
+        ticket.numbers.map(num =>
+          num !== "" ? `<span>${num}</span>` : `<span class="empty"> </span>`
+        ).join('');
+      container.appendChild(div);
+    });
+  });
+
+function createBoard() {
+  const board = document.getElementById("number-board");
+  if (!board) return;
+
+  board.innerHTML = "";
+  for (let i = 1; i <= 90; i++) {
+    const cell = document.createElement("div");
+    cell.classList.add("number");
+    cell.id = `num-${i}`;
+    cell.textContent = i;
+    board.appendChild(cell);
+  }
+}
+
+function callRandomNumber() {
+  if (availableNumbers.length === 0) {
     clearInterval(intervalId);
     return;
   }
 
-  let random;
-  do {
-    random = Math.floor(Math.random() * 90) + 1;
-  } while (calledNumbers.has(random));
+  const randomIndex = Math.floor(Math.random() * availableNumbers.length);
+  const number = availableNumbers.splice(randomIndex, 1)[0]; // Remove called number
 
-  calledNumbers.add(random);
+  document.getElementById("number-display").textContent = `Number: ${number}`;
+  document.getElementById(`num-${number}`)?.classList.add("called");
 
-  document.getElementById("number-display").textContent = `Number: ${random}`;
-  const cell = document.getElementById(`num-${random}`);
-  if (cell) cell.classList.add("called");
-  highlightTickets(random);
+  highlightTickets(number);
+  calledNumbers.add(number);
 }
+
+function highlightTickets(num) {
+  document.querySelectorAll(`.ticket span`).forEach(span => {
+    if (parseInt(span.textContent) === num) {
+      span.classList.add("called");
+    }
+  });
+}
+
+// Start / Stop buttons
+document.getElementById("start-btn").onclick = () => {
+  clearInterval(intervalId);
+  intervalId = setInterval(callRandomNumber, 3000);
+};
+
+document.getElementById("stop-btn").onclick = () => {
+  clearInterval(intervalId);
+};
+
+createBoard();
