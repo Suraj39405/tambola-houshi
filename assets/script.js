@@ -2,6 +2,7 @@ let current = 1;
 let intervalId;
 let calledNumbers = new Set();
 
+// Load tickets
 fetch("tickets.json")
   .then(response => response.json())
   .then(data => {
@@ -10,13 +11,16 @@ fetch("tickets.json")
       const div = document.createElement("div");
       div.className = "ticket";
       div.innerHTML = `<h3>${ticket.name}</h3>` +
-        ticket.numbers.map(num => `<span>${num}</span>`).join('');
+        ticket.numbers.map(num => 
+          `<span>${num !== "" ? num : "&nbsp;"}</span>`).join('');
       container.appendChild(div);
     });
   });
 
 function createBoard() {
   const board = document.getElementById("number-board");
+  if (!board) return;
+
   board.innerHTML = "";
   for (let i = 1; i <= 90; i++) {
     const cell = document.createElement("div");
