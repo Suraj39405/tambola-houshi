@@ -72,3 +72,45 @@ button {
 button:hover {
   background-color: #5f00a8;
 }
+.board {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 5px;
+  margin-bottom: 20px;
+}
+
+.board span {
+  border: 1px solid #000;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  background-color: white;
+}
+
+.board span.called {
+  background-color: red;
+  color: white;
+}
+
+.display {
+  font-size: 32px;
+  margin-bottom: 10px;
+  color: red;
+  font-weight: bold;
+  text-align: center;
+}
+
+.ticket span {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin: 2px;
+  border: 1px solid #888;
+  text-align: center;
+  line-height: 30px;
+}
+
+.ticket span.marked {
+  background-color: green;
+  color: white;
+}
