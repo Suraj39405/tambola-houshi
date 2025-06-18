@@ -1,116 +1,53 @@
 body {
   font-family: Arial, sans-serif;
   text-align: center;
-  background: #f2f2f2;
+  background: #fdf6e3;
   margin: 0;
-  padding: 20px;
+  padding: 0;
 }
 
 h1 {
-  color: #4b0082;
-  margin-bottom: 10px;
-}
-
-.ticket {
-  display: inline-block;
-  background: white;
-  border: 2px solid #4b0082;
-  margin: 10px;
-  padding: 10px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px #ccc;
-}
-
-.ticket h3 {
-  margin: 0 0 10px;
-  color: #4b0082;
-}
-
-.ticket table {
-  border-collapse: collapse;
-  width: 100%;
-}
-
-.ticket td {
-  width: 33px;
-  height: 33px;
-  border: 1px solid #aaa;
-  text-align: center;
-  vertical-align: middle;
-  font-size: 18px;
-  background-color: #fff;
-}
-
-.ticket td:not(:empty) {
-  background-color: #e6f0ff;
-  font-weight: bold;
-}
-
-#current-number {
-  font-size: 40px;
-  color: red;
-  margin: 20px 0;
-}
-
-#called-numbers {
   margin-top: 10px;
-  font-size: 18px;
   color: #333;
 }
 
-button {
+#called-number {
+  font-size: 5rem;
+  font-weight: bold;
+  color: #e74c3c;
+  margin: 20px 0;
+}
+
+#start-btn {
   padding: 10px 20px;
-  margin: 10px;
-  font-size: 16px;
-  background-color: #4b0082;
+  font-size: 1.5rem;
+  background-color: #27ae60;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
+  margin-bottom: 20px;
   cursor: pointer;
 }
 
-button:hover {
-  background-color: #5f00a8;
-}
-.board {
+#number-grid {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  gap: 5px;
-  margin-bottom: 20px;
+  gap: 10px;
+  max-width: 90vw;
+  margin: 0 auto 50px;
 }
 
-.board span {
-  border: 1px solid #000;
-  padding: 10px;
-  text-align: center;
-  font-weight: bold;
-  background-color: white;
+.number-cell {
+  font-size: 2rem;
+  padding: 20px;
+  border: 2px solid #555;
+  border-radius: 10px;
+  background-color: #fff;
+  color: #000;
 }
 
-.board span.called {
-  background-color: red;
+.number-cell.active {
+  background-color: #e67e22;
   color: white;
-}
-
-.display {
-  font-size: 32px;
-  margin-bottom: 10px;
-  color: red;
   font-weight: bold;
-  text-align: center;
-}
-
-.ticket span {
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  margin: 2px;
-  border: 1px solid #888;
-  text-align: center;
-  line-height: 30px;
-}
-
-.ticket span.marked {
-  background-color: green;
-  color: white;
 }
