@@ -1,22 +1,17 @@
-// Agent Login
-const agentCredentials = {
-  username: "admin",
-  password: "tambola123"
-};
-
+// Agent Login Logic
 document.addEventListener("DOMContentLoaded", function () {
   const loginBtn = document.getElementById("login-btn");
 
   if (loginBtn) {
     loginBtn.addEventListener("click", function () {
-      const user = document.getElementById("username").value;
-      const pass = document.getElementById("password").value;
+      const user = document.getElementById("username").value.trim();
+      const pass = document.getElementById("password").value.trim();
 
-      if (user === agentCredentials.username && pass === agentCredentials.password) {
+      if (user === "admin" && pass === "tambola123") {
         document.getElementById("login-container").style.display = "none";
         document.getElementById("game-container").style.display = "block";
       } else {
-        document.getElementById("login-message").textContent = "Invalid username or password.";
+        document.getElementById("login-message").textContent = "Invalid login. Try again.";
       }
     });
   }
