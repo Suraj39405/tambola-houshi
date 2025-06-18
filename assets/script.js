@@ -1,3 +1,4 @@
+// Load tickets from JSON and display them
 fetch("tickets.json")
   .then(response => response.json())
   .then(data => {
@@ -7,12 +8,10 @@ fetch("tickets.json")
       div.className = "ticket";
       div.innerHTML = `
         <h3>${ticket.name}</h3>
-        <table class="ticket-grid">
-          ${Array(3).fill('').map((_, rowIndex) => `
+        <table>
+          ${ticket.rows.map(row => `
             <tr>
-              ${ticket.numbers[rowIndex].map(num =>
-                `<td>${num || ''}</td>`
-              ).join('')}
+              ${row.map(num => `<td>${num === 0 ? '' : num}</td>`).join('')}
             </tr>
           `).join('')}
         </table>
@@ -20,91 +19,30 @@ fetch("tickets.json")
       container.appendChild(div);
     });
   });
-let numbers = [...Array(90).keys()].map(x => x + 1);
+
+// Number caller logic
+let allNumbers = Array.from({ length: 90 }, (_, i) => i + 1);
+let calledNumbers = [];
 let interval;
-let currentIndex = 0;
-let callLines = {};
+const currentNumber = document.getElementById("current-number");
+const calledDisplay = document.getElementById("called-numbers");
 
-fetch("assets/numbers.json")
-  .then(res => res.json())
-  .then(data => {
-    callLines = data;
-});
-
-function startCalling() {
-  shuffle(numbers);
+document.getElementById("start-btn").addEventListener("click", () => {
+  if (interval) return;
   interval = setInterval(() => {
-    if (currentIndex >= numbers.length) {
+    if (allNumbers.length === 0) {
       clearInterval(interval);
       return;
     }
-    let num = numbers[currentIndex];
-    document.getElementById("current-number").innerText = num;
-    document.getElementById("call-line").innerText = callLines[num] || `Number ${num}`;
-    speak(callLines[num] || `Number ${num}`);
-    currentIndex++;
+    const index = Math.floor(Math.random() * allNumbers.length);
+    const number = allNumbers.splice(index, 1)[0];
+    calledNumbers.push(number);
+    currentNumber.textContent = number;
+    calledDisplay.textContent = calledNumbers.join(", ");
   }, 5000);
-}
+});
 
-function pauseCalling() {
-  clearInterval(interval);
-}
-
-function shuffle(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-}
-
-function speak(text) {
-  const msg = new SpeechSynthesisUtterance(text);
-  msg.lang = 'en-IN';
-  window.speechSynthesis.speak(msg);
-}
-let numbers = Array.from({ length: 90 }, (_, i) => i + 1);
-let currentIndex = 0;
-let interval = null;
-
-// Shuffle numbers
-function shuffle(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-}
-shuffle(numbers);
-
-function callNextNumber() {
-  if (currentIndex < numbers.length) {
-    const number = numbers[currentIndex];
-    document.getElementById("current-number").textContent = number;
-    document.getElementById("call-line").textContent = getLine(number);
-    currentIndex++;
-  } else {
-    clearInterval(interval);
-    alert("All numbers have been called!");
-  }
-}
-
-function startCalling() {
-  if (!interval) {
-    interval = setInterval(callNextNumber, 5000); // call every 5 sec
-  }
-}
-
-function pauseCalling() {
+document.getElementById("stop-btn").addEventListener("click", () => {
   clearInterval(interval);
   interval = null;
-}
-
-function getLine(num) {
-  const lines = {
-    1: "1 is the beginning!",
-    14: "14 is Valentine's Day",
-    50: "Half Century!",
-    90: "Top of the game!",
-    // Add more custom lines here
-  };
-  return lines[num] || `Number ${num}`;
-}
+});
