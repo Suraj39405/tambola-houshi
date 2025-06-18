@@ -1,1 +1,0 @@
-Put your ticket backgrounds or images here
