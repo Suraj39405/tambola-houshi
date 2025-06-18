@@ -1,14 +1,75 @@
-#caller-box {
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: #fffde7;
+  color: #333;
   text-align: center;
+}
+
+h1 {
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: #c62828;
+}
+
+#ticket-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.ticket {
+  background: #ffecb3;
+  padding: 10px;
+  border-radius: 10px;
+  width: 250px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.ticket span {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  margin: 4px;
+  line-height: 25px;
+  text-align: center;
+  background: #fff;
+  border-radius: 5px;
+  border: 1px solid #999;
+}
+
+#number-caller {
   margin-top: 30px;
+  background: #e3f2fd;
+  padding: 20px;
+  border-radius: 10px;
+  display: inline-block;
 }
 
 #current-number {
   font-size: 60px;
-  color: #e91e63;
+  font-weight: bold;
+  color: #1565c0;
 }
 
 #call-line {
-  font-size: 24px;
+  font-size: 20px;
   margin-top: 10px;
+  color: #2e7d32;
+}
+
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  background-color: #42a5f5;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #1e88e5;
 }
