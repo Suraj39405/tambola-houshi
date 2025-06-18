@@ -100,3 +100,13 @@ body {
   background-color: yellow;
   font-weight: bold;
 }
+#winners {
+  background: #f9f9f9;
+  padding: 10px;
+  border: 2px solid gold;
+  margin-top: 20px;
+  font-size: 1.2em;
+}
+#winners div {
+  margin-bottom: 5px;
+}
