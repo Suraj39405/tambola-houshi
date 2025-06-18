@@ -76,3 +76,38 @@ document.getElementById("stop-btn").onclick = () => {
 };
 
 createBoard();
+fetch("tickets.json")
+  .then(response => response.json())
+  .then(data => {
+    const container = document.getElementById("ticket-container");
+
+    data.tickets.forEach(ticket => {
+      const ticketDiv = document.createElement("div");
+      ticketDiv.className = "ticket";
+      
+      const title = document.createElement("h3");
+      title.textContent = ticket.name;
+      ticketDiv.appendChild(title);
+
+      ticket.grid.forEach(row => {
+        const rowDiv = document.createElement("div");
+        rowDiv.className = "ticket-row";
+
+        row.forEach(cell => {
+          const cellDiv = document.createElement("div");
+          cellDiv.className = "ticket-cell";
+
+          if (cell !== "") {
+            cellDiv.textContent = cell;
+            cellDiv.dataset.number = cell;
+          }
+
+          rowDiv.appendChild(cellDiv);
+        });
+
+        ticketDiv.appendChild(rowDiv);
+      });
+
+      container.appendChild(ticketDiv);
+    });
+  });
