@@ -1,67 +1,70 @@
 body {
   font-family: Arial, sans-serif;
   text-align: center;
-  background-color: #fef9f4;
+  background: #f4f4f4;
+  margin: 0;
+  padding: 20px;
 }
 
 #controls {
-  margin: 20px;
+  margin: 20px 0;
 }
 
-button {
+#start-btn, #stop-btn {
   padding: 10px 20px;
   font-size: 18px;
-  margin: 0 10px;
-  cursor: pointer;
+  margin: 5px;
 }
 
 #number-display {
   font-size: 32px;
   margin: 20px 0;
-  font-weight: bold;
-  color: darkblue;
+  color: #333;
 }
 
 #number-board {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  gap: 8px;
-  margin: 20px auto;
-  max-width: 600px;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 40px;
 }
 
 .number {
-  border: 2px solid #aaa;
-  padding: 10px;
-  font-size: 22px;
+  font-size: 20px;
+  padding: 15px;
+  background: #e0e0e0;
   border-radius: 8px;
-  background: #fff;
+  transition: background 0.3s ease;
 }
 
 .number.called {
-  background-color: #ffc107;
+  background: orange;
+  color: white;
   font-weight: bold;
 }
 
 .ticket {
+  background: white;
   border: 2px solid #333;
+  margin: 20px auto;
   padding: 10px;
-  margin: 15px;
-  display: inline-block;
-  background: #f1f1f1;
+  max-width: 400px;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 5px;
 }
 
 .ticket span {
   display: inline-block;
-  width: 30px;
-  height: 30px;
-  margin: 2px;
-  line-height: 30px;
-  text-align: center;
+  padding: 10px;
+  background: #f0f0f0;
   border: 1px solid #ccc;
+  min-width: 30px;
 }
 
 .ticket span.called {
-  background-color: lightgreen;
+  background-color: green;
+  color: white;
   font-weight: bold;
 }
