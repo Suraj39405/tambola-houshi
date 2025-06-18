@@ -14,6 +14,22 @@ function login() {
     document.getElementById("login-message").textContent = "Invalid login.";
   }
 }
+const agentCredentials = {
+  username: "admin",
+  password: "tambola123"
+};
+
+function login() {
+  const user = document.getElementById("username").value;
+  const pass = document.getElementById("password").value;
+
+  if (user === agentCredentials.username && pass === agentCredentials.password) {
+    document.getElementById("login-container").style.display = "none";
+    document.getElementById("game-container").style.display = "block";
+  } else {
+    document.getElementById("login-message").textContent = "Invalid login.";
+  }
+}
 let calledNumbers = new Set();
 let availableNumbers = Array.from({ length: 90 }, (_, i) => i + 1);
 let intervalId = null;
