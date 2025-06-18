@@ -1,21 +1,26 @@
-// Agent Login Logic
+// Agent Login
 const agentCredentials = {
   username: "admin",
   password: "tambola123"
 };
 
-document.getElementById("login-btn").addEventListener("click", function () {
-  const user = document.getElementById("username").value;
-  const pass = document.getElementById("password").value;
+document.addEventListener("DOMContentLoaded", function () {
+  const loginBtn = document.getElementById("login-btn");
 
-  if (user === agentCredentials.username && pass === agentCredentials.password) {
-    document.getElementById("login-container").style.display = "none";
-    document.getElementById("game-container").style.display = "block";
-  } else {
-    document.getElementById("login-message").textContent = "Invalid username or password.";
+  if (loginBtn) {
+    loginBtn.addEventListener("click", function () {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+
+      if (user === agentCredentials.username && pass === agentCredentials.password) {
+        document.getElementById("login-container").style.display = "none";
+        document.getElementById("game-container").style.display = "block";
+      } else {
+        document.getElementById("login-message").textContent = "Invalid username or password.";
+      }
+    });
   }
 });
-}
 let calledNumbers = new Set();
 let availableNumbers = Array.from({ length: 90 }, (_, i) => i + 1);
 let intervalId = null;
