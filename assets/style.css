@@ -3,83 +3,59 @@ body {
   text-align: center;
   background: #f4f4f4;
   margin: 0;
-  padding: 20px;
+  padding: 0;
+}
+
+h1 {
+  background: #333;
+  color: white;
+  padding: 15px;
+  margin: 0;
 }
 
 #controls {
-  margin: 20px 0;
-}
-
-#start-btn, #stop-btn {
-  padding: 10px 20px;
-  font-size: 18px;
-  margin: 5px;
+  margin: 20px;
 }
 
 #number-display {
-  font-size: 32px;
-  margin: 20px 0;
-  color: #333;
+  font-size: 30px;
+  margin: 10px;
 }
 
 #number-board {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  gap: 10px;
-  justify-content: center;
-  margin-bottom: 40px;
+  gap: 5px;
+  margin: 10px auto;
+  max-width: 600px;
 }
 
 .number {
-  font-size: 20px;
-  padding: 15px;
-  background: #e0e0e0;
-  border-radius: 8px;
-  transition: background 0.3s ease;
+  background: #eee;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 18px;
 }
 
 .number.called {
-  background: orange;
-  color: white;
+  background-color: #ffcc00;
+  color: black;
   font-weight: bold;
 }
 
 .ticket {
-  background: white;
-  border: 2px solid #333;
-  margin: 20px auto;
-  padding: 10px;
-  max-width: 400px;
-  display: grid;
-  grid-template-columns: repeat(9, 1fr);
-  gap: 5px;
-}
-
-.ticket span {
   display: inline-block;
-  padding: 10px;
-  background: #f0f0f0;
-  border: 1px solid #ccc;
-  min-width: 30px;
-}
-
-.ticket span.called {
-  background-color: green;
-  color: white;
-  font-weight: bold;
-}
-.ticket {
-  display: inline-block;
+  border: 2px solid #444;
   margin: 10px;
-  padding: 10px;
-  border: 2px solid #000;
-  background: #fff;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  padding: 5px;
+  background-color: white;
 }
 
 .ticket h3 {
-  text-align: center;
-  margin-bottom: 8px;
+  margin: 5px 0;
+  background-color: #333;
+  color: white;
+  padding: 3px;
 }
 
 .ticket-table {
@@ -88,40 +64,24 @@ body {
 }
 
 .ticket-table td {
-  width: 40px;
-  height: 40px;
-  border: 1px solid #aaa;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ccc;
   text-align: center;
-  vertical-align: middle;
-  font-size: 18px;
-}
-
-.ticket-table td.called {
-  background-color: yellow;
   font-weight: bold;
 }
-#winners {
-  background: #f9f9f9;
-  padding: 10px;
-  border: 2px solid gold;
-  margin-top: 20px;
-  font-size: 1.2em;
+
+.ticket-table .called {
+  background-color: lightgreen;
 }
-#winners div {
-  margin-bottom: 5px;
+
+#error {
+  color: red;
+  font-weight: bold;
 }
-#login-container {
-  max-width: 300px;
-  margin: 20px auto;
-  padding: 20px;
-  border: 2px solid #444;
-  border-radius: 10px;
-  background-color: #f0f0f0;
-  text-align: center;
-}
-#login-container input {
-  display: block;
-  margin: 10px auto;
+
+input {
   padding: 8px;
-  width: 80%;
+  margin: 5px;
+  width: 200px;
 }
