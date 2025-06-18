@@ -1,52 +1,64 @@
-// Number Caller Logic
-let currentNumber = null;
+let numbers = Array.from({ length: 90 }, (_, i) => i + 1);
 let calledNumbers = [];
-let interval = null;
+let callInterval;
 
-const callerDiv = document.createElement("div");
-callerDiv.id = "current-number";
-callerDiv.textContent = "Calling No.";
-document.body.insertBefore(callerDiv, document.getElementById("ticket-container"));
-
-const calledNumbersDiv = document.createElement("div");
-calledNumbersDiv.id = "called-numbers";
-calledNumbersDiv.textContent = "Called: ";
-document.body.insertBefore(calledNumbersDiv, document.getElementById("ticket-container"));
-
-const startButton = document.createElement("button");
-startButton.textContent = "Start Calling";
-document.body.insertBefore(startButton, document.getElementById("ticket-container"));
-
-const stopButton = document.createElement("button");
-stopButton.textContent = "Stop";
-document.body.insertBefore(stopButton, document.getElementById("ticket-container"));
-
-function getNextNumber() {
-  if (calledNumbers.length >= 90) {
-    clearInterval(interval);
-    callerDiv.textContent = "All numbers called!";
-    return;
+function createBoard() {
+  const board = document.getElementById("number-board");
+  for (let i = 1; i <= 90; i++) {
+    const cell = document.createElement("span");
+    cell.id = `num-${i}`;
+    cell.innerText = i;
+    board.appendChild(cell);
   }
-
-  let num;
-  do {
-    num = Math.floor(Math.random() * 90) + 1;
-  } while (calledNumbers.includes(num));
-
-  calledNumbers.push(num);
-  currentNumber = num;
-  callerDiv.textContent = num;
-  calledNumbersDiv.textContent = "Called: " + calledNumbers.join(", ");
 }
 
-// Start and Stop buttons
-startButton.onclick = () => {
-  if (!interval) {
-    interval = setInterval(getNextNumber, 5000); // every 5 seconds
-  }
-};
+function highlightNumber(num) {
+  document.getElementById("display-number").innerText = num;
+  document.getElementById(`num-${num}`).classList.add("called");
 
-stopButton.onclick = () => {
-  clearInterval(interval);
-  interval = null;
-};
+  // Highlight on all tickets
+  document.querySelectorAll(".ticket span").forEach(span => {
+    if (span.innerText == num) {
+      span.classList.add("marked");
+    }
+  });
+}
+
+function callNextNumber() {
+  if (numbers.length === 0) {
+    clearInterval(callInterval);
+    alert("All numbers called!");
+    return;
+  }
+  const index = Math.floor(Math.random() * numbers.length);
+  const num = numbers.splice(index, 1)[0];
+  calledNumbers.push(num);
+  highlightNumber(num);
+}
+
+function startNumberCall() {
+  if (!callInterval) {
+    callInterval = setInterval(callNextNumber, 5000); // every 5 seconds
+  }
+}
+
+function stopNumberCall() {
+  clearInterval(callInterval);
+  callInterval = null;
+}
+
+// Load tickets
+fetch("tickets.json")
+  .then(response => response.json())
+  .then(data => {
+    const container = document.getElementById("ticket-container");
+    data.tickets.forEach(ticket => {
+      const div = document.createElement("div");
+      div.className = "ticket";
+      div.innerHTML = `<h3>${ticket.name}</h3>` +
+        ticket.numbers.map(num => `<span>${num}</span>`).join('');
+      container.appendChild(div);
+    });
+  });
+
+createBoard();
