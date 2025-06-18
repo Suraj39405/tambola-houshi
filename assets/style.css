@@ -1,34 +1,18 @@
-.ticket-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.ticket {
-  border: 2px solid #333;
-  padding: 10px;
-  width: 280px;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-#ticketContainer {
+#ticket-container {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
-  margin-top: 20px;
+  padding: 20px;
 }
 
 .ticket {
   border: 2px solid #444;
-  border-radius: 12px;
   padding: 10px;
-  background-color: #fdfdfd;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 280px;
+  width: 300px;
+  background-color: #fefefe;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
 }
 
 .ticket table {
@@ -37,8 +21,10 @@
 }
 
 .ticket td {
+  width: 11%;
+  height: 35px;
   border: 1px solid #ccc;
   text-align: center;
-  padding: 8px;
+  font-size: 16px;
   font-weight: bold;
 }
