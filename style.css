@@ -1,5 +1,30 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: sans-serif;
   text-align: center;
-  background-color: #f0f8ff;
+  background-color: #f2f2f2;
+}
+
+h1 {
+  margin-top: 20px;
+  color: #2c3e50;
+}
+
+.ticket {
+  display: inline-block;
+  margin: 10px;
+  padding: 10px;
+  background-color: #ffffff;
+  border: 2px solid #3498db;
+  border-radius: 10px;
+}
+
+.ticket span {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin: 2px;
+  line-height: 30px;
+  background: #ecf0f1;
+  border-radius: 5px;
+  font-weight: bold;
 }
