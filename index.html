@@ -7,17 +7,17 @@
 </head>
 <body>
   <h1>Welcome to Tambola Houshi</h1>
-  <div id="ticket-container"></div>
 
-  <!-- 👇 Number Caller UI 👇 -->
-  <div id="caller-box">
-    <h2>Number Called:</h2>
-    <div id="current-number">--</div>
-    <div id="call-line"></div>
-    <button onclick="startCalling()">Start Game</button>
-    <button onclick="pauseCalling()">Pause</button>
+  <!-- Number Caller Section -->
+  <div id="number-caller">
+    <h2>Current Number: <span id="current-number">--</span></h2>
+    <button id="start-btn">Start Calling</button>
+    <button id="stop-btn">Stop Calling</button>
+    <p>Called Numbers: <span id="called-numbers"></span></p>
   </div>
-  <!-- ☝️ End Number Caller UI -->
+
+  <!-- Ticket Display -->
+  <div id="ticket-container"></div>
 
   <script src="assets/script.js"></script>
 </body>
