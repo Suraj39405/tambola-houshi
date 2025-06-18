@@ -31,3 +31,38 @@
 <div id="winners">
   <h2>🏆 Winners</h2>
 </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tambola Houshi</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+
+  <div id="login-container">
+    <h2>Agent Login</h2>
+    <input type="text" id="username" placeholder="Username" />
+    <input type="password" id="password" placeholder="Password" />
+    <button onclick="login()">Login</button>
+    <p id="login-message" style="color: red;"></p>
+  </div>
+
+  <div id="game-container" style="display: none;">
+    <!-- Your Tambola game content: buttons, board, tickets -->
+    <h1>Welcome to Tambola Houshi</h1>
+
+    <div id="controls">
+      <button id="start-btn">Start</button>
+      <button id="stop-btn">Stop</button>
+    </div>
+
+    <div id="number-display">Number: --</div>
+    <div id="number-board"></div>
+    <div id="ticket-container"></div>
+  </div>
+
+  <!-- Place the script at the bottom so login() is already defined -->
+  <script src="assets/script.js"></script>
+</body>
+</html>
