@@ -68,3 +68,35 @@ body {
   color: white;
   font-weight: bold;
 }
+.ticket {
+  display: inline-block;
+  margin: 10px;
+  padding: 10px;
+  border: 2px solid #000;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.ticket h3 {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.ticket-table {
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+.ticket-table td {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #aaa;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 18px;
+}
+
+.ticket-table td.called {
+  background-color: yellow;
+  font-weight: bold;
+}
