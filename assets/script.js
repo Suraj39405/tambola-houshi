@@ -111,3 +111,61 @@ fetch("tickets.json")
       container.appendChild(ticketDiv);
     });
   });
+let winners = new Set();
+
+function highlightTickets(num) {
+  document.querySelectorAll(`.ticket span`).forEach(span => {
+    if (parseInt(span.textContent) === num) {
+      span.classList.add("called");
+    }
+  });
+
+  checkWinners();
+}
+
+function checkWinners() {
+  document.querySelectorAll(".ticket").forEach(ticketEl => {
+    const ticketId = ticketEl.getAttribute("data-id");
+    if (winners.has(ticketId)) return;
+
+    const lines = ticketEl.querySelectorAll(".ticket-line");
+    let lineMatches = [0, 0, 0];
+
+    lines.forEach((line, lineIndex) => {
+      const spans = line.querySelectorAll("span");
+      let count = 0;
+      spans.forEach(span => {
+        if (span.textContent && calledNumbers.has(parseInt(span.textContent))) {
+          count++;
+        }
+      });
+      lineMatches[lineIndex] = count;
+    });
+
+    const totalMatched = lineMatches.reduce((a, b) => a + b, 0);
+
+    if (lineMatches[0] === 5 && !ticketEl.dataset.firstLineWon) {
+      announceWinner(ticketEl, "First Line");
+      ticketEl.dataset.firstLineWon = true;
+    }
+    if (lineMatches[1] === 5 && !ticketEl.dataset.secondLineWon) {
+      announceWinner(ticketEl, "Second Line");
+      ticketEl.dataset.secondLineWon = true;
+    }
+    if (lineMatches[2] === 5 && !ticketEl.dataset.thirdLineWon) {
+      announceWinner(ticketEl, "Third Line");
+      ticketEl.dataset.thirdLineWon = true;
+    }
+    if (totalMatched === 15 && !ticketEl.dataset.fullHouseWon) {
+      announceWinner(ticketEl, "Full House");
+      ticketEl.dataset.fullHouseWon = true;
+    }
+  });
+}
+
+function announceWinner(ticketEl, type) {
+  const name = ticketEl.querySelector("h3").textContent;
+  const winnerBox = document.getElementById("winners");
+  winnerBox.innerHTML += `<div><strong>${type}:</strong> ${name}</div>`;
+  winners.add(ticketEl.getAttribute("data-id"));
+}
