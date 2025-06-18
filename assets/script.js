@@ -3,26 +3,20 @@ fetch("tickets.json")
   .then(data => {
     const container = document.getElementById("ticket-container");
     data.tickets.forEach(ticket => {
-      const ticketDiv = document.createElement("div");
-      ticketDiv.className = "ticket";
-      ticketDiv.innerHTML = `
+      const div = document.createElement("div");
+      div.className = "ticket";
+      div.innerHTML = `
         <h3>${ticket.name}</h3>
-        ${createTicketTable(ticket.numbers)}
+        <table class="ticket-grid">
+          ${Array(3).fill('').map((_, rowIndex) => `
+            <tr>
+              ${ticket.numbers[rowIndex].map(num =>
+                `<td>${num || ''}</td>`
+              ).join('')}
+            </tr>
+          `).join('')}
+        </table>
       `;
-      container.appendChild(ticketDiv);
+      container.appendChild(div);
     });
   });
-
-function createTicketTable(numbers) {
-  let table = "<table>";
-  for (let i = 0; i < 3; i++) {
-    table += "<tr>";
-    for (let j = 0; j < 9; j++) {
-      const num = numbers[i * 9 + j];
-      table += `<td>${num || ""}</td>`;
-    }
-    table += "</tr>";
-  }
-  table += "</table>";
-  return table;
-}
