@@ -1,45 +1,60 @@
-const grid = document.getElementById("number-grid");
-const calledDisplay = document.getElementById("called-number");
-const startBtn = document.getElementById("start-btn");
-
 let current = 1;
-const totalNumbers = 90;
-let interval = null;
+let intervalId;
+let calledNumbers = new Set();
 
-// Create grid
-for (let i = 1; i <= totalNumbers; i++) {
-  const cell = document.createElement("div");
-  cell.classList.add("number-cell");
-  cell.id = `cell-${i}`;
-  cell.textContent = i;
-  grid.appendChild(cell);
+// Load tickets
+fetch("tickets.json")
+  .then(response => response.json())
+  .then(data => {
+    const container = document.getElementById("ticket-container");
+    data.tickets.forEach(ticket => {
+      const div = document.createElement("div");
+      div.className = "ticket";
+      div.innerHTML = `<h3>${ticket.name}</h3>` +
+        ticket.numbers.map(num => `<span>${num}</span>`).join('');
+      container.appendChild(div);
+    });
+  });
+
+function createBoard() {
+  const board = document.getElementById("number-board");
+  for (let i = 1; i <= 90; i++) {
+    const cell = document.createElement("div");
+    cell.classList.add("number");
+    cell.id = `num-${i}`;
+    cell.textContent = i;
+    board.appendChild(cell);
+  }
 }
 
-function callNextNumber() {
-  if (current > totalNumbers) {
-    clearInterval(interval);
-    startBtn.disabled = false;
+function callNumber() {
+  if (current > 90) {
+    clearInterval(intervalId);
     return;
   }
-
-  calledDisplay.textContent = current;
-  const cell = document.getElementById(`cell-${current}`);
-  if (cell) {
-    cell.classList.add("called");
-  }
-
+  document.getElementById("number-display").textContent = `Number: ${current}`;
+  const cell = document.getElementById(`num-${current}`);
+  if (cell) cell.classList.add("called");
+  highlightTickets(current);
+  calledNumbers.add(current);
   current++;
 }
 
-startBtn.addEventListener("click", () => {
-  startBtn.disabled = true;
-  current = 1;
-  calledDisplay.textContent = "--";
-
-  // Reset all cells
-  document.querySelectorAll(".number-cell").forEach(cell => {
-    cell.classList.remove("called");
+function highlightTickets(num) {
+  document.querySelectorAll(`.ticket span`).forEach(span => {
+    if (parseInt(span.textContent) === num) {
+      span.classList.add("called");
+    }
   });
+}
 
-  interval = setInterval(callNextNumber, 3000); // every 3 sec
-});
+document.getElementById("start-btn").onclick = () => {
+  clearInterval(intervalId);
+  intervalId = setInterval(callNumber, 3000);
+};
+
+document.getElementById("stop-btn").onclick = () => {
+  clearInterval(intervalId);
+};
+
+createBoard();
