@@ -1,28 +1,94 @@
-// script.js - Full working Tambola game logic
+// =================== LOGIN SECTION ===================
+function login() {
+  const user = document.getElementById("username").value.trim();
+  const pass = document.getElementById("password").value.trim();
+  const error = document.getElementById("login-error");
 
-let currentNumber = 0; let intervalId = null; let calledNumbers = []; let isGameRunning = false;
+  if (user === "admin" && pass === "1234") {
+    document.getElementById("login-section").style.display = "none";
+    document.getElementById("game-section").style.display = "block";
+    error.textContent = "";
+  } else {
+    error.textContent = "Invalid username or password";
+  }
+}
 
-const username = "admin"; const password = "1234";
+// ============== NUMBER CALLER LOGIC ==================
+let current = 1;
+let intervalId;
+let calledNumbers = new Set();
 
-function showLogin() { document.getElementById("login-box").style.display = "block"; document.getElementById("game-container").style.display = "none"; }
+function callNumber() {
+  if (current > 90) {
+    clearInterval(intervalId);
+    return;
+  }
+  document.getElementById("number-display").textContent = `Number: ${current}`;
+  const cell = document.getElementById(`num-${current}`);
+  if (cell) cell.classList.add("called");
+  highlightTickets(current);
+  calledNumbers.add(current);
+  current++;
+}
 
-function showGame() { document.getElementById("login-box").style.display = "none"; document.getElementById("game-container").style.display = "block"; }
+document.getElementById("start-btn").onclick = () => {
+  clearInterval(intervalId);
+  intervalId = setInterval(callNumber, 3000);
+};
 
-document.getElementById("login-btn").addEventListener("click", () => { const user = document.getElementById("username").value; const pass = document.getElementById("password").value; if (user === username && pass === password) { showGame(); } else { alert("Incorrect username or password"); } });
+document.getElementById("stop-btn").onclick = () => {
+  clearInterval(intervalId);
+};
 
-function createBoard() { const board = document.getElementById("number-board"); for (let i = 1; i <= 90; i++) { const div = document.createElement("div"); div.className = "number"; div.id = num-${i}; div.textContent = i; board.appendChild(div); } }
+function createBoard() {
+  const board = document.getElementById("number-board");
+  if (!board) return;
+  board.innerHTML = "";
+  for (let i = 1; i <= 90; i++) {
+    const div = document.createElement("div");
+    div.className = "number";
+    div.id = `num-${i}`;
+    div.textContent = i;
+    board.appendChild(div);
+  }
+}
 
-function highlightTickets(num) { document.querySelectorAll(".ticket span").forEach(span => { if (parseInt(span.textContent) === num) { span.classList.add("called"); } }); }
+createBoard();
 
-function callNextNumber() { const remaining = [...Array(90).keys()].map(i => i + 1).filter(n => !calledNumbers.includes(n)); if (remaining.length === 0) { clearInterval(intervalId); return; } const next = remaining[Math.floor(Math.random() * remaining.length)]; calledNumbers.push(next);
+// ============== TICKET LOADER + HIGHLIGHT =============
+fetch("tickets.json")
+  .then(response => response.json())
+  .then(data => {
+    const container = document.getElementById("ticket-container");
+    data.tickets.forEach(ticket => {
+      const ticketDiv = document.createElement("div");
+      ticketDiv.classList.add("ticket");
 
-document.getElementById("number-display").textContent = Number: ${next}; const cell = document.getElementById(num-${next}); if (cell) cell.classList.add("called"); highlightTickets(next); }
+      const title = document.createElement("h3");
+      title.textContent = ticket.name;
+      ticketDiv.appendChild(title);
 
-document.getElementById("start-btn").addEventListener("click", () => { if (!isGameRunning) { isGameRunning = true; intervalId = setInterval(callNextNumber, 3000); } });
+      const table = document.createElement("table");
+      table.className = "ticket-table";
 
-document.getElementById("stop-btn").addEventListener("click", () => { isGameRunning = false; clearInterval(intervalId); });
+      ticket.grid.forEach(row => {
+        const tr = document.createElement("tr");
+        row.forEach(num => {
+          const td = document.createElement("td");
+          td.textContent = num || "";
+          if (num) td.setAttribute("data-number", num);
+          tr.appendChild(td);
+        });
+        table.appendChild(tr);
+      });
 
-function loadTickets() { fetch("tickets.json") .then(res => res.json()) .then(data => { const container = document.getElementById("ticket-container"); data.tickets.forEach(ticket => { const div = document.createElement("div"); div.className = "ticket"; div.innerHTML = <h3>${ticket.name}</h3> + ticket.grid.map(row => <div class='ticket-row'>${row.map(num => num ? <span>${num}</span>:<span class='empty'></span>).join('')}</div> ).join(''); container.appendChild(div); }); }); }
+      ticketDiv.appendChild(table);
+      container.appendChild(ticketDiv);
+    });
+  });
 
-createBoard(); loadTickets(); showLogin();
-
+function highlightTickets(num) {
+  document.querySelectorAll(`[data-number='${num}']`).forEach(cell => {
+    cell.classList.add("called");
+  });
+}
