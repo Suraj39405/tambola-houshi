@@ -1,30 +1,24 @@
-#ticket-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  padding: 20px;
-}
-
 .ticket {
-  border: 2px solid #444;
+  border: 2px solid #333;
+  margin: 10px;
   padding: 10px;
-  width: 300px;
-  background-color: #fefefe;
-  border-radius: 10px;
-  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  width: fit-content;
+  font-family: sans-serif;
 }
 
-.ticket table {
-  width: 100%;
-  border-collapse: collapse;
+.ticket-row {
+  display: grid;
+  grid-template-columns: repeat(9, 30px);
+  gap: 5px;
+  margin-bottom: 5px;
 }
 
-.ticket td {
-  width: 11%;
-  height: 35px;
-  border: 1px solid #ccc;
+.ticket-row span {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
   text-align: center;
-  font-size: 16px;
-  font-weight: bold;
+  line-height: 30px;
+  border: 1px solid #aaa;
+  background: #f8f8f8;
 }
