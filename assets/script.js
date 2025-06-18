@@ -1,48 +1,52 @@
-// Load tickets from JSON and display them
-fetch("tickets.json")
-  .then(response => response.json())
-  .then(data => {
-    const container = document.getElementById("ticket-container");
-    data.tickets.forEach(ticket => {
-      const div = document.createElement("div");
-      div.className = "ticket";
-      div.innerHTML = `
-        <h3>${ticket.name}</h3>
-        <table>
-          ${ticket.rows.map(row => `
-            <tr>
-              ${row.map(num => `<td>${num === 0 ? '' : num}</td>`).join('')}
-            </tr>
-          `).join('')}
-        </table>
-      `;
-      container.appendChild(div);
-    });
-  });
-
-// Number caller logic
-let allNumbers = Array.from({ length: 90 }, (_, i) => i + 1);
+// Number Caller Logic
+let currentNumber = null;
 let calledNumbers = [];
-let interval;
-const currentNumber = document.getElementById("current-number");
-const calledDisplay = document.getElementById("called-numbers");
+let interval = null;
 
-document.getElementById("start-btn").addEventListener("click", () => {
-  if (interval) return;
-  interval = setInterval(() => {
-    if (allNumbers.length === 0) {
-      clearInterval(interval);
-      return;
-    }
-    const index = Math.floor(Math.random() * allNumbers.length);
-    const number = allNumbers.splice(index, 1)[0];
-    calledNumbers.push(number);
-    currentNumber.textContent = number;
-    calledDisplay.textContent = calledNumbers.join(", ");
-  }, 5000);
-});
+const callerDiv = document.createElement("div");
+callerDiv.id = "current-number";
+callerDiv.textContent = "Calling No.";
+document.body.insertBefore(callerDiv, document.getElementById("ticket-container"));
 
-document.getElementById("stop-btn").addEventListener("click", () => {
+const calledNumbersDiv = document.createElement("div");
+calledNumbersDiv.id = "called-numbers";
+calledNumbersDiv.textContent = "Called: ";
+document.body.insertBefore(calledNumbersDiv, document.getElementById("ticket-container"));
+
+const startButton = document.createElement("button");
+startButton.textContent = "Start Calling";
+document.body.insertBefore(startButton, document.getElementById("ticket-container"));
+
+const stopButton = document.createElement("button");
+stopButton.textContent = "Stop";
+document.body.insertBefore(stopButton, document.getElementById("ticket-container"));
+
+function getNextNumber() {
+  if (calledNumbers.length >= 90) {
+    clearInterval(interval);
+    callerDiv.textContent = "All numbers called!";
+    return;
+  }
+
+  let num;
+  do {
+    num = Math.floor(Math.random() * 90) + 1;
+  } while (calledNumbers.includes(num));
+
+  calledNumbers.push(num);
+  currentNumber = num;
+  callerDiv.textContent = num;
+  calledNumbersDiv.textContent = "Called: " + calledNumbers.join(", ");
+}
+
+// Start and Stop buttons
+startButton.onclick = () => {
+  if (!interval) {
+    interval = setInterval(getNextNumber, 5000); // every 5 seconds
+  }
+};
+
+stopButton.onclick = () => {
   clearInterval(interval);
   interval = null;
-});
+};
