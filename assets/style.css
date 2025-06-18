@@ -1,75 +1,74 @@
 body {
   font-family: Arial, sans-serif;
-  padding: 20px;
-  background-color: #fffde7;
-  color: #333;
   text-align: center;
+  background: #f2f2f2;
+  margin: 0;
+  padding: 20px;
 }
 
 h1 {
-  font-size: 32px;
-  margin-bottom: 20px;
-  color: #c62828;
-}
-
-#ticket-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
+  color: #4b0082;
+  margin-bottom: 10px;
 }
 
 .ticket {
-  background: #ffecb3;
+  display: inline-block;
+  background: white;
+  border: 2px solid #4b0082;
+  margin: 10px;
   padding: 10px;
   border-radius: 10px;
-  width: 250px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  box-shadow: 0 0 10px #ccc;
 }
 
-.ticket span {
-  display: inline-block;
-  width: 25px;
-  height: 25px;
-  margin: 4px;
-  line-height: 25px;
+.ticket h3 {
+  margin: 0 0 10px;
+  color: #4b0082;
+}
+
+.ticket table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.ticket td {
+  width: 33px;
+  height: 33px;
+  border: 1px solid #aaa;
   text-align: center;
-  background: #fff;
-  border-radius: 5px;
-  border: 1px solid #999;
+  vertical-align: middle;
+  font-size: 18px;
+  background-color: #fff;
 }
 
-#number-caller {
-  margin-top: 30px;
-  background: #e3f2fd;
-  padding: 20px;
-  border-radius: 10px;
-  display: inline-block;
+.ticket td:not(:empty) {
+  background-color: #e6f0ff;
+  font-weight: bold;
 }
 
 #current-number {
-  font-size: 60px;
-  font-weight: bold;
-  color: #1565c0;
+  font-size: 40px;
+  color: red;
+  margin: 20px 0;
 }
 
-#call-line {
-  font-size: 20px;
+#called-numbers {
   margin-top: 10px;
-  color: #2e7d32;
+  font-size: 18px;
+  color: #333;
 }
 
 button {
-  margin: 10px;
   padding: 10px 20px;
+  margin: 10px;
   font-size: 16px;
-  border: none;
-  border-radius: 6px;
-  background-color: #42a5f5;
+  background-color: #4b0082;
   color: white;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
 }
 
 button:hover {
-  background-color: #1e88e5;
+  background-color: #5f00a8;
 }
