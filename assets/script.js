@@ -58,3 +58,16 @@ document.getElementById("stop-btn").onclick = () => {
 };
 
 createBoard();
+function createBoard() {
+  const board = document.getElementById("number-board");
+  if (!board) return;
+
+  board.innerHTML = ""; // Clear previous numbers if any
+  for (let i = 1; i <= 90; i++) {
+    const cell = document.createElement("div");
+    cell.classList.add("number");
+    cell.id = `num-${i}`;
+    cell.textContent = i;
+    board.appendChild(cell);
+  }
+}
