@@ -1,24 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Tambola Houshi</title>
-  <link rel="stylesheet" href="assets/style.css" />
-</head>
 <body>
   <h1>Welcome to Tambola Houshi</h1>
 
-  <!-- Number Caller Section -->
-  <div id="number-caller">
-    <h2>Current Number: <span id="current-number">--</span></h2>
-    <button id="start-btn">Start Calling</button>
-    <button id="stop-btn">Stop Calling</button>
-    <p>Called Numbers: <span id="called-numbers"></span></p>
-  </div>
+  <div id="display-number" class="display">Waiting...</div>
 
-  <!-- Ticket Display -->
+  <div id="number-board" class="board"></div>
+
   <div id="ticket-container"></div>
+
+  <button onclick="startNumberCall()">Start Number Call</button>
+  <button onclick="stopNumberCall()">Stop</button>
 
   <script src="assets/script.js"></script>
 </body>
-</html>
