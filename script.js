@@ -1,0 +1,1 @@
+console.log("Tambola Houshi is live!");
