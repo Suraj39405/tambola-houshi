@@ -1,77 +1,112 @@
-let current = 0;
+let current = 1;
 let intervalId;
-let calledNumbers = new Set();
-let isAgent = false;
+let calledNumbers = JSON.parse(localStorage.getItem("calledNumbers")) || [];
+let agentLoggedIn = false;
 
-// Load and show tickets
-fetch("tickets.json")
-  .then(res => res.json())
-  .then(data => {
-    const container = document.getElementById("ticket-container");
-    data.tickets.forEach(ticket => {
-      const div = document.createElement("div");
-      div.className = "ticket";
-      div.innerHTML = `<h3>${ticket.name}</h3>` +
-        ticket.grid.map(row =>
-          `<div class="row">${row.map(num =>
-            `<div class="cell ${num ? '' : 'empty'}">${num || ''}</div>`
-          ).join('')}</div>`).join('');
-      container.appendChild(div);
-    });
-  });
+function login() {
+  const user = document.getElementById("username").value;
+  const pass = document.getElementById("password").value;
+  if (user === "agent" && pass === "houshi123") {
+    agentLoggedIn = true;
+    document.getElementById("controls").style.display = "block";
+    document.getElementById("winner-board").style.display = "block";
+    document.getElementById("agent-login").style.display = "none";
+  } else {
+    alert("Wrong credentials!");
+  }
+}
 
 function createBoard() {
   const board = document.getElementById("number-board");
+  board.innerHTML = "";
   for (let i = 1; i <= 90; i++) {
     const cell = document.createElement("div");
     cell.classList.add("number");
     cell.id = `num-${i}`;
     cell.textContent = i;
+    if (calledNumbers.includes(i)) {
+      cell.classList.add("called");
+    }
     board.appendChild(cell);
   }
 }
-createBoard();
+
+function highlightTickets(num) {
+  document.querySelectorAll(`.ticket span`).forEach(span => {
+    if (parseInt(span.textContent) === num) {
+      span.classList.add("called");
+    }
+  });
+}
 
 function callNumber() {
-  let next;
-  do {
-    next = Math.floor(Math.random() * 90) + 1;
-  } while (calledNumbers.has(next) && calledNumbers.size < 90);
-
-  if (calledNumbers.size >= 90) {
+  if (calledNumbers.length >= 90) {
     clearInterval(intervalId);
     return;
   }
 
-  document.getElementById("number-display").textContent = `Number: ${next}`;
-  document.getElementById(`num-${next}`)?.classList.add("called");
+  let num;
+  do {
+    num = Math.floor(Math.random() * 90) + 1;
+  } while (calledNumbers.includes(num));
 
-  document.querySelectorAll(".cell").forEach(cell => {
-    if (parseInt(cell.textContent) === next) {
-      cell.classList.add("called");
-    }
-  });
+  calledNumbers.push(num);
+  localStorage.setItem("calledNumbers", JSON.stringify(calledNumbers));
 
-  calledNumbers.add(next);
+  document.getElementById("number-display").textContent = `Number: ${num}`;
+  const cell = document.getElementById(`num-${num}`);
+  if (cell) cell.classList.add("called");
+  highlightTickets(num);
+}
+
+function newGame() {
+  if (!confirm("Are you sure you want to start a new game?")) return;
+  clearInterval(intervalId);
+  calledNumbers = [];
+  localStorage.removeItem("calledNumbers");
+  document.getElementById("number-display").textContent = "Number: --";
+  createBoard();
+  loadTickets(); // re-load ticket UI
 }
 
 document.getElementById("start-btn").onclick = () => {
   clearInterval(intervalId);
-  intervalId = setInterval(callNumber, 3000);
+  intervalId = setInterval(callNumber, 2500);
 };
-document.getElementById("stop-btn").onclick = () => clearInterval(intervalId);
-document.getElementById("new-game-btn").onclick = () => location.reload();
 
-document.getElementById("login-btn").onclick = () => {
-  const user = document.getElementById("username").value;
-  const pass = document.getElementById("password").value;
-
-  if (user === "agent" && pass === "houshi123") {
-    isAgent = true;
-    document.getElementById("login-container").style.display = "none";
-    document.getElementById("game-controls").style.display = "block";
-    document.getElementById("winner-board").style.display = "block";
-  } else {
-    alert("Incorrect login");
-  }
+document.getElementById("stop-btn").onclick = () => {
+  clearInterval(intervalId);
 };
+
+function loadTickets() {
+  fetch("tickets.json")
+    .then(response => response.json())
+    .then(data => {
+      const container = document.getElementById("ticket-container");
+      container.innerHTML = "";
+      data.tickets.forEach(ticket => {
+        const div = document.createElement("div");
+        div.className = "ticket";
+        div.innerHTML = `<h3>${ticket.name}</h3>`;
+        ticket.grid.forEach(row => {
+          const rowDiv = document.createElement("div");
+          rowDiv.classList.add("ticket-row");
+          row.forEach(num => {
+            const cell = document.createElement("span");
+            if (num !== "") {
+              cell.textContent = num;
+              if (calledNumbers.includes(num)) {
+                cell.classList.add("called");
+              }
+            }
+            rowDiv.appendChild(cell);
+          });
+          div.appendChild(rowDiv);
+        });
+        container.appendChild(div);
+      });
+    });
+}
+
+createBoard();
+loadTickets();
