@@ -2,7 +2,7 @@
 
 ## ✅ Features INCLUDED so far
 
-![Feature Checklist](features.jpg)
+![Feature Checklist](1000500416.jpg)
 
 ## ❗ Features NOT YET included (Coming Next)
 - Winner Detection (First Line, Full House, etc.)
