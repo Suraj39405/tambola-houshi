@@ -1,27 +1,25 @@
 body {
   font-family: Arial, sans-serif;
   text-align: center;
-  background: #f7f7f7;
-  margin: 0;
-  padding: 20px;
+  padding: 10px;
 }
 
-.board {
+#number-board {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  gap: 8px;
-  margin: 20px auto;
   max-width: 600px;
+  margin: auto;
+  gap: 4px;
+  margin-bottom: 20px;
 }
 
 .number {
-  background: #fff;
   border: 1px solid #ccc;
-  padding: 12px;
-  font-weight: bold;
-  border-radius: 5px;
+  padding: 8px;
+  font-size: 18px;
+  background: #f0f0f0;
+  border-radius: 4px;
 }
-
 .called {
   background-color: orange;
   color: white;
@@ -29,23 +27,25 @@ body {
 
 .ticket {
   display: inline-block;
+  border: 2px solid #000;
   margin: 10px;
   padding: 5px;
   background: #fff;
+}
+.row {
+  display: grid;
+  grid-template-columns: repeat(9, 30px);
+}
+.cell {
   border: 1px solid #ccc;
-}
-
-.ticket table {
-  border-collapse: collapse;
-}
-
-.ticket td {
-  width: 30px;
   height: 30px;
-  border: 1px solid #ddd;
-  text-align: center;
+  line-height: 30px;
+}
+.empty {
+  background: #f9f9f9;
 }
 
-.error {
-  color: red;
+button {
+  margin: 5px;
+  padding: 8px 12px;
 }
