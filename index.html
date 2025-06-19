@@ -1,35 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tambola Houshi</title>
   <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
-  <h1>Welcome to Tambola Houshi</h1>
-
-  <div id="agent-login" class="login-box">
-    <input type="text" id="username" placeholder="Username" />
-    <input type="password" id="password" placeholder="Password" />
-    <button onclick="login()">Login</button>
-  </div>
-
-  <div id="controls" style="display:none;">
+  <div id="background"></div>
+  <header>
+    <img src="assets/logo.png" alt="Tambola Houshi Logo" class="logo" />
+    <img src="assets/welcome.png" alt="Welcome" class="welcome" />
+  </header>  <div id="agent-login-section">
+    <button id="show-login">Agent Login</button>
+    <div id="login-box" class="hidden">
+      <input type="text" id="username" placeholder="Username" />
+      <input type="password" id="password" placeholder="Password" />
+      <button id="login-btn">Login</button>
+    </div>
+  </div>  <div id="controls" class="hidden">
     <button id="start-btn">Start</button>
     <button id="stop-btn">Stop</button>
-    <button onclick="newGame()">New Game</button>
-  </div>
-
-  <div id="number-display">Number: --</div>
-  <div id="number-board"></div>
-
-  <div id="winner-board" style="display:none;">
-    <h2>🏆 Winner Board</h2>
-    <ul id="winners"></ul>
-  </div>
-
-  <div id="ticket-container"></div>
-
-  <script src="assets/script.js"></script>
-</body>
+    <button id="new-game-btn">New Game</button>
+  </div>  <div id="number-display">Number: --</div>
+  <div id="number-board"></div>  <h2>Your Ticket</h2>
+  <div id="ticket-container"></div>  <div id="winner-board" class="hidden">
+    <h3>Winners</h3>
+    <ul id="winners-list"></ul>
+  </div>  <script src="assets/script.js"></script></body>
 </html>
