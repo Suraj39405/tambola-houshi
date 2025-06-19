@@ -1,32 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tambola Houshi</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Tambola Houshi</h1>
-
+  <!-- Login Section -->
   <div id="login-section">
-    <input type="text" id="username" placeholder="Username">
-    <input type="password" id="password" placeholder="Password">
+    <h2>Agent Login</h2>
+    <input type="text" id="username" placeholder="Username" />
+    <input type="password" id="password" placeholder="Password" />
     <button onclick="login()">Login</button>
-    <p id="login-error" class="error"></p>
-  </div>
+    <p id="login-error"></p>
+  </div>  <!-- Game Section -->  <div id="game-section" style="display: none;">
+    <h1>Welcome to Tambola Houshi</h1><div id="controls">
+  <button id="start-btn">Start</button>
+  <button id="stop-btn">Stop</button>
+</div>
 
-  <div id="game-section" style="display:none;">
-    <div id="controls">
-      <button id="start-btn">Start</button>
-      <button id="stop-btn">Stop</button>
-    </div>
+<div id="number-display">Number: --</div>
+<div id="number-board"></div>
 
-    <div id="number-display">Number: --</div>
-    <div id="number-board"></div>
-    <h2>Tickets</h2>
-    <div id="ticket-container"></div>
-  </div>
+<div id="ticket-container"></div>
 
-  <script src="script.js"></script>
-</body>
+  </div>  <script src="script.js"></script></body>
 </html>
