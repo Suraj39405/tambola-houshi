@@ -1,106 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Tambola Game - Feature Checklist</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Tambola Houshi</title>
+  <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
-    <h1>Tambola Game</h1>
+  <h1>Welcome to Tambola Houshi</h1>
 
-    <section>
-        <h2>✅ Features INCLUDED so far:</h2>
-        <table>
-            <tr>
-                <th>Feature</th>
-                <th>Status</th>
-            </tr>
-            <tr>
-                <td>1–90 Number Board with Highlight</td>
-                <td class="done">✔️ Done</td>
-            </tr>
-            <tr>
-                <td>Start/Stop Button</td>
-                <td class="done">✔️ Done</td>
-            </tr>
-            <tr>
-                <td>Display Called Number</td>
-                <td class="done">✔️ Done</td>
-            </tr>
-            <tr>
-                <td>Ticket Loader (from tickets.json)</td>
-                <td class="done">✔️ Done</td>
-            </tr>
-            <tr>
-                <td>Ticket Number Highlighting</td>
-                <td class="done">✔️ Done</td>
-            </tr>
-            <tr>
-                <td>Layout and Styling</td>
-                <td class="basic">✔️ Basic</td>
-            </tr>
-        </table>
-    </section>
+  <div id="agent-login" class="login-box">
+    <input type="text" id="username" placeholder="Username" />
+    <input type="password" id="password" placeholder="Password" />
+    <button onclick="login()">Login</button>
+  </div>
 
-    <hr>
+  <div id="controls" style="display:none;">
+    <button id="start-btn">Start</button>
+    <button id="stop-btn">Stop</button>
+    <button onclick="newGame()">New Game</button>
+  </div>
 
-    <section>
-        <h2>❗ Features NOT YET included (Coming Next):</h2>
-        <table>
-            <tr>
-                <th>Feature</th>
-                <th>Planned</th>
-            </tr>
-            <tr>
-                <td>200 Tickets (You asked – next step)</td>
-                <td class="planned">⏳</td>
-            </tr>
-            <tr>
-                <td>Winner Detection (First Line, Full House etc.)</td>
-                <td class="notyet">❌</td>
-            </tr>
-            <tr>
-                <td>Winner Announcement Box</td>
-                <td class="notyet">❌</td>
-            </tr>
-            <tr>
-                <td>Agent Login</td>
-                <td class="notyet">❌</td>
-            </tr>
-            <tr>
-                <td>Full Sheet / Half Sheet Bonus</td>
-                <td class="notyet">❌</td>
-            </tr>
-            <tr>
-                <td>Search Ticket by Name or Number</td>
-                <td class="notyet">❌</td>
-            </tr>
-            <tr>
-                <td>10 Minute Preview Timer (Edit Lockdown)</td>
-                <td class="notyet">❌</td>
-            </tr>
-            <tr>
-                <td>Sound Effects on Win</td>
-                <td class="notyet">❌</td>
-            </tr>
-            <tr>
-                <td>Admin Controls: Enable/Disable features</td>
-                <td class="notyet">❌</td>
-            </tr>
-            <tr>
-                <td>Responsive Design (Mobile Friendly)</td>
-                <td class="notyet">❌</td>
-            </tr>
-        </table>
-    </section>
+  <div id="number-display">Number: --</div>
+  <div id="number-board"></div>
 
-    <hr>
+  <div id="winner-board" style="display:none;">
+    <h2>🏆 Winner Board</h2>
+    <ul id="winners"></ul>
+  </div>
 
-    <section>
-        <h2>Feature Checklist Image</h2>
-        <img src="1000500416.jpg" alt="Feature Checklist" style="max-width:350px; border:1px solid #ccc;">
-    </section>
+  <div id="ticket-container"></div>
 
-    <script src="script.js"></script>
+  <script src="assets/script.js"></script>
 </body>
 </html>
