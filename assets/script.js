@@ -1,34 +1,57 @@
-// =================== LOGIN SECTION ===================
-function login() {
-  const user = document.getElementById("username").value.trim();
-  const pass = document.getElementById("password").value.trim();
-  const error = document.getElementById("login-error");
-
-  if (user === "admin" && pass === "1234") {
-    document.getElementById("login-section").style.display = "none";
-    document.getElementById("game-section").style.display = "block";
-    error.textContent = "";
-  } else {
-    error.textContent = "Invalid username or password";
-  }
-}
-
-// ============== NUMBER CALLER LOGIC ==================
 let current = 1;
 let intervalId;
 let calledNumbers = new Set();
+
+function login() {
+  const user = document.getElementById("username").value;
+  const pass = document.getElementById("password").value;
+  if (user === "agent" && pass === "houshi123") {
+    document.getElementById("login-section").style.display = "none";
+    document.getElementById("game-section").style.display = "block";
+  } else {
+    document.getElementById("login-error").textContent = "Invalid credentials!";
+  }
+}
+
+function createBoard() {
+  const board = document.getElementById("number-board");
+  board.innerHTML = "";
+  for (let i = 1; i <= 90; i++) {
+    const cell = document.createElement("div");
+    cell.classList.add("number");
+    cell.id = `num-${i}`;
+    cell.textContent = i;
+    board.appendChild(cell);
+  }
+}
 
 function callNumber() {
   if (current > 90) {
     clearInterval(intervalId);
     return;
   }
-  document.getElementById("number-display").textContent = `Number: ${current}`;
-  const cell = document.getElementById(`num-${current}`);
-  if (cell) cell.classList.add("called");
-  highlightTickets(current);
-  calledNumbers.add(current);
-  current++;
+
+  const num = getRandomNumber();
+  document.getElementById("number-display").textContent = `Number: ${num}`;
+  document.getElementById(`num-${num}`)?.classList.add("called");
+  calledNumbers.add(num);
+  highlightTickets(num);
+}
+
+function getRandomNumber() {
+  let num;
+  do {
+    num = Math.floor(Math.random() * 90) + 1;
+  } while (calledNumbers.has(num));
+  return num;
+}
+
+function highlightTickets(num) {
+  document.querySelectorAll(".ticket td").forEach(td => {
+    if (parseInt(td.textContent) === num) {
+      td.classList.add("called");
+    }
+  });
 }
 
 document.getElementById("start-btn").onclick = () => {
@@ -40,55 +63,23 @@ document.getElementById("stop-btn").onclick = () => {
   clearInterval(intervalId);
 };
 
-function createBoard() {
-  const board = document.getElementById("number-board");
-  if (!board) return;
-  board.innerHTML = "";
-  for (let i = 1; i <= 90; i++) {
-    const div = document.createElement("div");
-    div.className = "number";
-    div.id = `num-${i}`;
-    div.textContent = i;
-    board.appendChild(div);
-  }
+function loadTickets() {
+  fetch("tickets.json")
+    .then(res => res.json())
+    .then(data => {
+      const container = document.getElementById("ticket-container");
+      data.tickets.forEach(ticket => {
+        const div = document.createElement("div");
+        div.className = "ticket";
+        div.innerHTML = `<h4>${ticket.name}</h4><table>` +
+          ticket.grid.map(row =>
+            `<tr>${row.map(cell =>
+              `<td>${cell || ""}</td>`).join("")}</tr>`
+          ).join("") + "</table>";
+        container.appendChild(div);
+      });
+    });
 }
 
 createBoard();
-
-// ============== TICKET LOADER + HIGHLIGHT =============
-fetch("tickets.json")
-  .then(response => response.json())
-  .then(data => {
-    const container = document.getElementById("ticket-container");
-    data.tickets.forEach(ticket => {
-      const ticketDiv = document.createElement("div");
-      ticketDiv.classList.add("ticket");
-
-      const title = document.createElement("h3");
-      title.textContent = ticket.name;
-      ticketDiv.appendChild(title);
-
-      const table = document.createElement("table");
-      table.className = "ticket-table";
-
-      ticket.grid.forEach(row => {
-        const tr = document.createElement("tr");
-        row.forEach(num => {
-          const td = document.createElement("td");
-          td.textContent = num || "";
-          if (num) td.setAttribute("data-number", num);
-          tr.appendChild(td);
-        });
-        table.appendChild(tr);
-      });
-
-      ticketDiv.appendChild(table);
-      container.appendChild(ticketDiv);
-    });
-  });
-
-function highlightTickets(num) {
-  document.querySelectorAll(`[data-number='${num}']`).forEach(cell => {
-    cell.classList.add("called");
-  });
-}
+loadTickets();
