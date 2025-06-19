@@ -1,21 +1,35 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Tambola Houshi</title>
   <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
-  <h1>Welcome to Tambola Houshi</h1>  <div id="login-panel">
-    <input type="text" id="username" placeholder="Username">
-    <input type="password" id="password" placeholder="Password">
-    <button onclick="login()">Login</button>
-  </div>  <div id="controls" style="display: none;">
+  <h1>Tambola Houshi</h1>
+
+  <div id="login-container">
+    <input type="text" id="username" placeholder="Username" />
+    <input type="password" id="password" placeholder="Password" />
+    <button id="login-btn">Login</button>
+  </div>
+
+  <div id="game-controls" style="display: none;">
     <button id="start-btn">Start</button>
     <button id="stop-btn">Stop</button>
     <button id="new-game-btn">New Game</button>
-  </div>  <div id="number-display">Number: --</div>
-  <div id="number-board"></div>  <div id="ticket-container"></div>  <div id="winner-board" style="display: none;">
-    <h2>Winner Board (Agent View)</h2>
+  </div>
+
+  <div id="number-display">Number: --</div>
+  <div id="number-board"></div>
+
+  <div id="winner-board" style="display: none;">
+    <h3>Winner Board</h3>
     <ul id="winner-list"></ul>
-  </div>  <script src="assets/script.js"></script></body>
+  </div>
+
+  <div id="ticket-container"></div>
+
+  <script src="assets/script.js"></script>
+</body>
 </html>
